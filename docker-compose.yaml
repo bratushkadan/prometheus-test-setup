@@ -1,0 +1,17 @@
+services:
+  prometheus:
+    image: "prom/prometheus:v2.54.1"
+    network_mode: host
+      # ports:
+      #   - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+  python-web-server:
+    build: ./python-app/
+    network_mode: host
+    volumes:
+      - ./python-app/src:/app/src:ro
+
+volumes:
+  prometheus-data:
